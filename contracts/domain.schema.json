@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "智能短剧制作责任谱领域事件",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "aggregate_type",
+    "aggregate_id",
+    "occurred_at",
+    "version",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "ASSET_DECLARED",
+        "CLIP_GENERATED",
+        "SHOT_APPROVED",
+        "LICENSE_EXPIRED",
+        "RELEASE_WITHDRAWN"
+      ]
+    },
+    "aggregate_type": {
+      "type": "string",
+      "enum": [
+        "production_project",
+        "source_asset",
+        "generated_clip",
+        "release_package"
+      ]
+    },
+    "aggregate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "payload_required_by_event": {
+    "ASSET_DECLARED": [
+      "rights_scope",
+      "content_hash"
+    ],
+    "CLIP_GENERATED": [
+      "configuration_hash",
+      "source_refs"
+    ],
+    "RELEASE_WITHDRAWN": [
+      "territory",
+      "reason"
+    ]
+  },
+  "additionalProperties": false
+}

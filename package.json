@@ -1,0 +1,12 @@
+{
+  "name": "synthetic-drama-lineage",
+  "version": "0.1.0",
+  "private": true,
+  "description": "智能短剧制作责任谱领域契约",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "build": "node --check src/contracts.js && node --check src/cli.js",
+    "check:sample": "node src/cli.js contracts/domain.schema.json data/sample.json"
+  }
+}
