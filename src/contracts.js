@@ -36,6 +36,12 @@ export function validateEvent(payload, schema) {
     for (const field of schema.payload_required_by_event?.[payload.event_type] ?? []) {
       if (!(field in eventPayload)) issues.push({ field: `payload.${field}`, code: "required", message: "事件载荷缺少必填字段" });
     }
+    for (const [field, allowed] of Object.entries(schema.payload_enums?.[payload.event_type] ?? {})) {
+      const value = eventPayload[field];
+      if (typeof value === "string" && allowed.length > 0 && !allowed.includes(value)) {
+        issues.push({ field: `payload.${field}`, code: "unsupported_value", message: "事件载荷字段值未在契约中登记" });
+      }
+    }
   }
   return issues.sort((left, right) => left.field.localeCompare(right.field) || left.code.localeCompare(right.code));
 }

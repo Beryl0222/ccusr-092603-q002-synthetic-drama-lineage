@@ -1,11 +1,13 @@
 {
   "event_id": "092507-002-sample-001",
   "event_type": "ASSET_DECLARED",
-  "aggregate_type": "production_project",
+  "aggregate_type": "source_asset",
   "aggregate_id": "synthetic_drama_lineage-001",
   "occurred_at": "2026-09-24T12:00:00+08:00",
   "version": 1,
   "payload": {
+    "declared_by": "sample-declared_by",
+    "usage": "reference",
     "rights_scope": "sample-rights_scope",
     "content_hash": "sample-content_hash"
   }

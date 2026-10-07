@@ -20,18 +20,33 @@
       "type": "string",
       "enum": [
         "ASSET_DECLARED",
-        "CLIP_GENERATED",
-        "SHOT_APPROVED",
+        "LICENSE_GRANTED",
         "LICENSE_EXPIRED",
-        "RELEASE_WITHDRAWN"
+        "CHARACTER_VERSION_REGISTERED",
+        "BATCH_REQUESTED",
+        "CLIP_GENERATED",
+        "CLIP_REGENERATED",
+        "CLIP_CURATED",
+        "SHOT_COMPOSED",
+        "CONTINUITY_CHECKED",
+        "SHOT_SUBMITTED",
+        "SHOT_APPROVED",
+        "RELEASE_STARTED",
+        "TERRITORY_PACKAGED",
+        "RELEASE_WITHDRAWN",
+        "TAKEDOWN_ISSUED"
       ]
     },
     "aggregate_type": {
       "type": "string",
       "enum": [
         "production_project",
+        "character_version",
+        "actor_license",
         "source_asset",
+        "generation_batch",
         "generated_clip",
+        "shot",
         "release_package"
       ]
     },
@@ -53,17 +68,126 @@
   },
   "payload_required_by_event": {
     "ASSET_DECLARED": [
+      "declared_by",
+      "usage",
       "rights_scope",
       "content_hash"
     ],
-    "CLIP_GENERATED": [
+    "LICENSE_GRANTED": [
+      "license_ref",
+      "actor_ref",
+      "scope",
+      "valid_from",
+      "valid_until"
+    ],
+    "LICENSE_EXPIRED": [
+      "license_ref",
+      "effective_from"
+    ],
+    "CHARACTER_VERSION_REGISTERED": [
+      "character_ref",
+      "version_no",
+      "license_ref",
+      "base_asset_refs"
+    ],
+    "BATCH_REQUESTED": [
+      "request_key",
       "configuration_hash",
-      "source_refs"
+      "material_digest"
+    ],
+    "CLIP_GENERATED": [
+      "batch_ref",
+      "request_key",
+      "configuration_hash",
+      "material_digest",
+      "source_refs",
+      "prompt_digest"
+    ],
+    "CLIP_REGENERATED": [
+      "supersedes_clip_ref",
+      "request_key",
+      "configuration_hash",
+      "material_digest",
+      "reason"
+    ],
+    "CLIP_CURATED": [
+      "clip_ref",
+      "curator_ref",
+      "decision"
+    ],
+    "SHOT_COMPOSED": [
+      "clip_refs",
+      "editor_ref",
+      "disclosed_source_refs"
+    ],
+    "CONTINUITY_CHECKED": [
+      "shot_refs",
+      "checker_ref",
+      "result"
+    ],
+    "SHOT_SUBMITTED": [
+      "submitted_by",
+      "risk_level"
+    ],
+    "SHOT_APPROVED": [
+      "risk_level",
+      "approvals"
+    ],
+    "RELEASE_STARTED": [
+      "territories",
+      "initiated_by"
+    ],
+    "TERRITORY_PACKAGED": [
+      "territory",
+      "package_ref"
     ],
     "RELEASE_WITHDRAWN": [
       "territory",
-      "reason"
+      "reason",
+      "include_derivatives"
+    ],
+    "TAKEDOWN_ISSUED": [
+      "territory",
+      "obligation_ref",
+      "due_at"
     ]
+  },
+  "payload_enums": {
+    "ASSET_DECLARED": {
+      "usage": [
+        "training",
+        "reference",
+        "voice",
+        "prompt"
+      ]
+    },
+    "CLIP_CURATED": {
+      "decision": [
+        "kept",
+        "discarded"
+      ]
+    },
+    "CONTINUITY_CHECKED": {
+      "result": [
+        "passed",
+        "failed",
+        "waived"
+      ]
+    },
+    "SHOT_SUBMITTED": {
+      "risk_level": [
+        "low",
+        "standard",
+        "high"
+      ]
+    },
+    "SHOT_APPROVED": {
+      "risk_level": [
+        "low",
+        "standard",
+        "high"
+      ]
+    }
   },
   "additionalProperties": false
 }
